@@ -2,7 +2,8 @@ package com.example.security_test.type;
 
 public enum RoleEnum{
     ADMIN("ROLE_ADMIN"),
-    MANAGER("ROLE_MANAGER");
+    MANAGER("ROLE_MANAGER"),
+    USER("ROLE_USER");
 
     private final String role;
 

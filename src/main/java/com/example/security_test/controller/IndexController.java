@@ -1,20 +1,33 @@
 package com.example.security_test.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.security_test.dto.UserJoinDTO;
+import com.example.security_test.model.User;
+import com.example.security_test.repository.UserRepository;
+import com.example.security_test.type.RoleEnum;
+
 @Controller
-@ResponseBody
 public class IndexController {
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping({"","/"})
-    public String index(){
+    public @ResponseBody String index(){
         return "index";
     }
 
     @GetMapping("/user")
-    public String user(){
+    public @ResponseBody String user(){
         return "user";
     }
 
@@ -29,24 +42,29 @@ public class IndexController {
         return "manager";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "login";
+    @GetMapping("/loginForm")
+    public String loginForm(){
+        return "loginForm";
     }
 
-    @GetMapping("/join")
-    public @ResponseBody String join(){
-        return "join";
+    @GetMapping("/joinForm")
+    public String joinForm(){
+        return "joinForm";
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
+    @PostMapping("/join")
+    public String join(UserJoinDTO userJoinDTO){
+        String rawPassword = userJoinDTO.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 
-    @GetMapping("/joinProc")
-    public @ResponseBody String joinProc(){
-        return "join 완료";
+        userJoinDTO.setRole(RoleEnum.USER.role());
+        userJoinDTO.setPassword(encPassword);
+        
+        User user = userJoinDTO.toEntity();
+        userRepository.save(user);
+
+        return "redirect:/loginForm";
     }
+    
 
 }

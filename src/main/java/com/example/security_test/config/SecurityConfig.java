@@ -26,7 +26,7 @@ public class SecurityConfig{
                     .antMatchers("/user/**").authenticated()
                     .anyRequest().permitAll()
         );
-        httpSecurity.formLogin().loginPage("/loginForm");
+        httpSecurity.formLogin().loginPage("/loginForm").loginProcessingUrl("/login").defaultSuccessUrl("/");
         httpSecurity.csrf().disable();
         return httpSecurity.build();         
     }

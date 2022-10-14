@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
+// @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -29,6 +29,22 @@ public class User {
     private String role;
     @CreationTimestamp
     private Timestamp createDate;
+
+    private String provider;
+    private String providerId;
+
+    @Builder
+    public User(String username, String password, String email, String role, String provider,
+            String providerId) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
+    
 
 
 }

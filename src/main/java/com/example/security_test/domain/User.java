@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +40,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = "ROLE_"+role;
+        this.role = role;
         this.provider = provider;
         this.providerId = providerId;
     }

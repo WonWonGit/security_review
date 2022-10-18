@@ -1,9 +1,9 @@
 package com.example.security_test.domain;
 
 public enum RoleEnum{
-    ADMIN("ADMIN"),
-    MANAGER("MANAGER"),
-    USER("USER");
+    ADMIN("ROLE_ADMIN"),
+    MANAGER("ROLE_MANAGER"),
+    USER("ROLE_USER");
 
     private final String role;
 

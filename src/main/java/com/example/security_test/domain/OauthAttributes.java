@@ -15,6 +15,17 @@ public enum OauthAttributes {
                    .email((String) attributes.get("email"))
                    .role(RoleEnum.USER.role())
                    .build();  
+    }),
+
+    NAVER("naver", (attributes) -> {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+        return User.builder()
+                   .providerId((String) response.get("id"))
+                   .provider("naver")
+                   .username("naver_"+(String) response.get("id"))
+                   .email((String) response.get("email"))
+                   .role(RoleEnum.USER.role())
+                   .build();  
     });
 
     private final String registrationId;

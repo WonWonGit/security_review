@@ -24,9 +24,9 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authorizeRequests(authorize -> authorize.antMatchers("/admin/**")
-                    .hasRole(RoleEnum.ADMIN.role())
+                    .hasRole(RoleEnum.ADMIN.name())
                     .antMatchers("/manager/**")
-                    .hasAnyRole(RoleEnum.ADMIN.role(),RoleEnum.MANAGER.role())
+                    .hasAnyRole(RoleEnum.ADMIN.name(),RoleEnum.MANAGER.name())
                     .antMatchers("/user/**").authenticated()
                     .anyRequest().permitAll()
         );

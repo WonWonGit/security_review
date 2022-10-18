@@ -11,9 +11,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.example.security_test.auth.PrincipalDetails;
-import com.example.security_test.domain.User;
 import com.example.security_test.domain.OauthAttributes;
-import com.example.security_test.domain.RoleEnum;
+import com.example.security_test.domain.User;
 import com.example.security_test.repository.UserRepository;
 
 @Service

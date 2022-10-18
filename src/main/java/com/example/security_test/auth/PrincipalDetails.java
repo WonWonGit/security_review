@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import com.example.security_test.model.User;
+import com.example.security_test.domain.User;
 
 import lombok.Data;
 

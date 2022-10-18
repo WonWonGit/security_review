@@ -11,9 +11,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.example.security_test.auth.PrincipalDetails;
-import com.example.security_test.model.User;
+import com.example.security_test.domain.User;
+import com.example.security_test.domain.OauthAttributes;
+import com.example.security_test.domain.RoleEnum;
 import com.example.security_test.repository.UserRepository;
-import com.example.security_test.type.RoleEnum;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
@@ -29,24 +30,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
         
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        String provider = userRequest.getClientRegistration().getClientId();
-        String providerId = oAuth2User.getAttribute("sub");
-        String username = provider+"_"+providerId;
-        String password = bCryptPasswordEncoder.encode(UUID.randomUUID().toString());
-        String email = oAuth2User.getAttribute("email");
-        String role = RoleEnum.USER.role();
+        String provider = userRequest.getClientRegistration().getRegistrationId();
 
-        User userEntity = userRepository.findByUsername(username);
+        User userEntity = OauthAttributes.extract(provider, oAuth2User.getAttributes());
+        
+        User findUser = userRepository.findByUsername(userEntity.getUsername());
 
-        if(userEntity == null){
-            userEntity = User.builder()
-                            .username(username)
-                            .email(email)
-                            .password(password)
-                            .provider(provider)
-                            .providerId(providerId)
-                            .role(role)
-                            .build();
+        if(findUser == null){
+
+            userEntity.setPassword(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+            
             userRepository.save(userEntity);                
         }
 

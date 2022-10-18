@@ -1,6 +1,6 @@
 package com.example.security_test.dto;
 
-import com.example.security_test.model.User;
+import com.example.security_test.domain.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

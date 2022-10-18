@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.security_test.auth.PrincipalDetails;
+import com.example.security_test.domain.User;
 import com.example.security_test.dto.UserJoinDTO;
-import com.example.security_test.model.User;
+import com.example.security_test.domain.RoleEnum;
 import com.example.security_test.repository.UserRepository;
-import com.example.security_test.type.RoleEnum;
 
 @Controller
 public class IndexController {

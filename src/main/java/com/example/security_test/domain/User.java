@@ -1,4 +1,4 @@
-package com.example.security_test.model;
+package com.example.security_test.domain;
 
 import java.sql.Timestamp;
 
@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -39,7 +42,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.role = "ROLE_"+role;
         this.provider = provider;
         this.providerId = providerId;
     }

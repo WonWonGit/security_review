@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.security_test.config.auth.PrincipalOauth2UserService;
+import com.example.security_test.domain.RoleEnum;
 
 
 
@@ -23,9 +24,9 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authorizeRequests(authorize -> authorize.antMatchers("/admin/**")
-                    .hasRole("ADMIN")
+                    .hasRole(RoleEnum.ADMIN.role())
                     .antMatchers("/manager/**")
-                    .hasAnyRole("MANAGER", "ADMIN")
+                    .hasAnyRole(RoleEnum.ADMIN.role(),RoleEnum.MANAGER.role())
                     .antMatchers("/user/**").authenticated()
                     .anyRequest().permitAll()
         );
